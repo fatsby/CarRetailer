@@ -1,4 +1,4 @@
-package fatsby.forms;
+package fatsby.forms.adminforms;
 
 import fatsby.login.Login;
 import fatsby.manager.IndexChangeListener;
@@ -21,8 +21,8 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserSystemMenu extends BlurChild {
-    public UserSystemMenu() {
+public class AdminSystemMenu extends BlurChild {
+    public AdminSystemMenu() {
         super(new Style()
                 .setBlur(30)
                 .setBorder(new StyleBorder(10)
@@ -83,7 +83,7 @@ public class UserSystemMenu extends BlurChild {
 
         return new SimpleHeaderData()
                 .setTitle(Login.currentUser)
-                .setDescription("Welcome to the Grand Sanctuary Hotel");
+                .setDescription("Grand Sanctuary Hotel Admin Panel");
     }
 
     public void addIndexChangeListener(IndexChangeListener listener) {

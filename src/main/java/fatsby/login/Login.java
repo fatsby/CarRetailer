@@ -2,6 +2,7 @@ package fatsby.login;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import fatsby.forms.UserMenu;
+import fatsby.forms.adminforms.AdminMenu;
 import fatsby.manager.FormsManager;
 import fatsby.manager.Serializer;
 import fatsby.manager.Staff;
@@ -12,7 +13,6 @@ import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class Login extends JPanel {
     public Login() {
@@ -72,7 +72,9 @@ public class Login extends JPanel {
                 if (Serializer.fileExists("src/main/java/fatsby/database/staffs", username+".dat")){
                     Staff staff = (Staff) Serializer.deserializeObject("src/main/java/fatsby/database/staffs", username+".dat");
                     if(password.equals(staff.getPassword())) {
+                        currentUser = staff.getUsername();
                         JOptionPane.showMessageDialog(Login.this, "You have successfully logged in!");
+                        FormsManager.getInstance().showForm(new AdminMenu());
                     } else{
                         JOptionPane.showMessageDialog(this, "Incorrect password!");
                     }
