@@ -1,6 +1,8 @@
 package fatsby.manager;
 
-public class Room {
+import java.io.Serializable;
+
+public class Room implements Serializable {
     private String roomNumber;
     private int capacity;
     private int price;

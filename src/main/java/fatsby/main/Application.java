@@ -15,7 +15,7 @@ public class Application extends JFrame {
         init();
     }
     private void init() {
-        setTitle("Login Page");
+        setTitle("The Sanctuary Hotel");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(1200, 700));
         setLocationRelativeTo(null);
