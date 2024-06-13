@@ -45,11 +45,10 @@ public class CarInfoDialog extends JDialog {
             String imageURL = car.getImageURL();
             ImageIcon originalIcon = new ImageIcon(imageURL);
             Image originalImage = originalIcon.getImage();
-            // Resize the image to 150x150 pixels
             Image resizedImage = originalImage.getScaledInstance(700, 450, Image.SCALE_SMOOTH);
             ImageIcon resizedIcon = new ImageIcon(resizedImage);
             JLabel imageLabel = new JLabel(resizedIcon);
-            panel.add(imageLabel, "wrap"); // Add the image label to the panel with a line break
+            panel.add(imageLabel, "wrap");
         } catch (Exception e) {
             System.err.println("Error loading car image: " + e.getMessage());
         }
