@@ -2,45 +2,60 @@ package fatsby.forms;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import fatsby.forms.miscpanels.RoomPanel;
-import fatsby.manager.Room;
+import fatsby.manager.Car;
 import fatsby.manager.Serializer;
+import fatsby.manager.Store;
 import net.miginfocom.swing.MigLayout;
 import raven.swing.blur.BlurChild;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardPane extends BlurChild {
     public DashboardPane() {
-        //Add function to loop through every room files and add it to a list
-        rooms = new ArrayList<Room>();
-        rooms = Serializer.deserializeRooms("src/main/java/fatsby/database/rooms");
-        System.out.println(rooms);
         init();
     }
     private void init(){
-        setLayout(new MigLayout("wrap 3, insets 20", "[center]", "[center]"));
-        //Scroll pane settings
-//        setBorder(BorderFactory.createEmptyBorder());
-//        setOpaque(false);
-//        getViewport().setOpaque(false);
-//        getVerticalScrollBar().setOpaque(false);
-//        getVerticalScrollBar().setUnitIncrement(10);
-//        getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE,"" +
-//                "trackArc:999;" +
-//                "width:5;"+
-//                "thumbInsets:0,0,0,0");
+        setLayout(new MigLayout("wrap 5, insets 20", "[center]", "[center]"));
 
 
-        JLabel availRoomLabel = new JLabel("Available rooms:");
-        availRoomLabel.putClientProperty(FlatClientProperties.STYLE,"font:bold +10");
-        add(availRoomLabel, "growx, wrap");
-        for (Room room : rooms) {
-            RoomPanel roomPanel = new RoomPanel(room);
-            add(roomPanel);
+        JLabel availCarLabel = new JLabel("Available Cars:");
+        availCarLabel.putClientProperty(FlatClientProperties.STYLE,"font:bold +10");
+        add(availCarLabel, "growx, wrap");
+
+        //Scroll Panel
+        container = new BlurChild();
+        container.setLayout(new MigLayout("wrap 5, insets 0", "[]", "[]"));
+        for (Car car : store.getCars()) {
+            RoomPanel roomPanel = new RoomPanel(car);
+            container.add(roomPanel);
         }
+
+        JScrollPane availCarScrollPane = new JScrollPane(container);
+        availCarScrollPane.setBorder(BorderFactory.createEmptyBorder());
+        availCarScrollPane.setOpaque(false);
+        availCarScrollPane.getViewport().setOpaque(false);
+        availCarScrollPane.getVerticalScrollBar().setOpaque(false);
+        availCarScrollPane.getVerticalScrollBar().setUnitIncrement(10);
+        add(availCarScrollPane, "growx, wrap");
     }
+
+    public static void refreshDashboardPane() {
+        container.removeAll(); // Remove all components
+        container.setLayout(new MigLayout("wrap 5, insets 0", "[]", "[]"));
+        for (Car car : store.getCars()) {
+            RoomPanel roomPanel = new RoomPanel(car);
+            container.add(roomPanel);
+        }
+        container.revalidate();
+        container.repaint();
+    }
+
     private JLabel testLabel;
-    private List<Room> rooms;
+    private static Store store = Store.getInstance();
+    public static BlurChild container;
 }

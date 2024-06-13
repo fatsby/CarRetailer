@@ -69,10 +69,11 @@ public class Login extends JPanel {
             boolean staffChk = chkStaff.isSelected();
 
            if(staffChk) {  // Staff Login
-                if (Serializer.fileExists("src/main/java/fatsby/database/staffs", username+".dat")){
-                    Staff staff = (Staff) Serializer.deserializeObject("src/main/java/fatsby/database/staffs", username+".dat");
+                if (Serializer.fileExists("C:\\FatsbyCarRetailer\\database\\staffs", username+".dat")){
+                    Staff staff = (Staff) Serializer.deserializeObject("C:\\FatsbyCarRetailer\\database\\staffs", username+".dat");
                     if(password.equals(staff.getPassword())) {
                         currentUser = staff.getUsername();
+                        userSingleton.setStaff(true);
                         JOptionPane.showMessageDialog(Login.this, "You have successfully logged in!");
                         FormsManager.getInstance().showForm(new AdminMenu());
                     } else{
@@ -83,10 +84,13 @@ public class Login extends JPanel {
                 }
            }
            if (!staffChk){ //User Login
-               if (Serializer.fileExists("src/main/java/fatsby/database/users", username+".dat")){
-                   User user = (User) Serializer.deserializeObject("src/main/java/fatsby/database/users", username+".dat");
+               if (Serializer.fileExists("C:\\FatsbyCarRetailer\\database\\users", username+".dat")){
+                   User user = (User) Serializer.deserializeObject("C:\\FatsbyCarRetailer\\database\\users", username+".dat");
                    if(password.equals(user.getPassword())) {
                        currentUser = user.getUsername();
+                       user.setStaff(false);
+                       User.setInstance(user);
+                       userSingleton.setStaff(false);
                        JOptionPane.showMessageDialog(Login.this, "You have successfully logged in!");
                        FormsManager.getInstance().showForm(new UserMenu());
                    } else{
@@ -122,4 +126,5 @@ public class Login extends JPanel {
     private JCheckBox chkStaff;
     private JButton btnLogin;
     public static String currentUser;
+    private static User userSingleton = User.getInstance();
 }

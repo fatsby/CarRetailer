@@ -1,7 +1,10 @@
 package fatsby.forms.miscpanels;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import fatsby.manager.Room;
+import fatsby.forms.DashboardPane;
+import fatsby.manager.Car;
+import fatsby.manager.Store;
+import fatsby.manager.User;
 import net.miginfocom.swing.MigLayout;
 import raven.swing.blur.BlurChild;
 import raven.swing.blur.style.GradientColor;
@@ -12,10 +15,13 @@ import raven.swing.blur.style.StyleOverlay;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.net.URL;
+import java.io.File;
 
 public class RoomPanel extends BlurChild {
-    public RoomPanel(Room room){
+    private User user = User.getInstance();
+    private Store store = Store.getInstance();
+
+    public RoomPanel(Car car){
         super(new Style()
                 .setBlur(30)
                 .setBorder(new StyleBorder(10)
@@ -25,16 +31,16 @@ public class RoomPanel extends BlurChild {
                 )
                 .setOverlay(new StyleOverlay(new Color(0,0,0),0.2f))
         );
-        init(room);
+        init(car);
     }
-    public void init(Room room){
+    public void init(Car car){
         // Create a new JPanel to hold room details
 
         setLayout(new MigLayout("align center", "[center]", "[center]"));
         setPreferredSize(new Dimension(150,150));
 
         try {
-            String imageURL = room.getImageURL();
+            String imageURL = car.getImageURL();
             ImageIcon originalIcon = new ImageIcon(imageURL);
             Image originalImage = originalIcon.getImage();
             // Resize the image to 150x150 pixels
@@ -43,22 +49,50 @@ public class RoomPanel extends BlurChild {
             JLabel imageLabel = new JLabel(resizedIcon);
             add(imageLabel, "wrap"); // Add the image label to the panel with a line break
         } catch (Exception e) {
-            System.err.println("Error loading room image: " + e.getMessage());
+            System.err.println("Error loading car image: " + e.getMessage());
         }
 
         // Create labels for room details
-        JLabel roomNumber = new JLabel("Room Number: " + room.getRoomNumber());
-        JLabel roomCapacity = new JLabel("Room Capacity: " + room.getCapacity());
-        JLabel roomPrice = new JLabel("Price: $" + room.getPrice());
+        JLabel roomNumber = new JLabel(car.getCarName());
+        JLabel roomCapacity = new JLabel("Capacity: " + car.getCapacity());
+        JLabel roomPrice = new JLabel("Price: $" + car.getPrice());
 
         //Changing style for book btn
-        JButton bookBtn = new JButton("Book");
+        JButton bookBtn = new JButton("Buy");
         bookBtn.putClientProperty(FlatClientProperties.STYLE, "background: #90EE90; foreground: #000000;");
+
+        JButton deleteBtn = new JButton("Delete");
+        deleteBtn.putClientProperty(FlatClientProperties.STYLE, "background: #FF474C; foreground: #000000;");
 
         // Add labels to the panel
         add(roomNumber, "wrap");
         add(roomCapacity, "wrap");
         add(roomPrice, "wrap");
-        add(bookBtn, "wrap, align center");
+        if (user.isStaff()){
+            add(deleteBtn, "wrap, align center");
+        } else {
+            add(bookBtn, "wrap, align center");
+        }
+
+        bookBtn.addActionListener(e -> {
+            CarInfoDialog dialog = new CarInfoDialog(car);
+            dialog.setVisible(true);
+        });
+
+        deleteBtn.addActionListener(e ->{
+            String filePath = "C:\\FatsbyCarRetailer\\database\\cars\\" + car.getCarName()+".dat";
+            String imgPath = "C:\\FatsbyCarRetailer\\resources\\images\\cars\\" + car.getCarName()+".jpg";
+            System.out.println(filePath);
+            File imgToDelete = new File(imgPath);
+            File fileToDelete = new File(filePath);
+            if (fileToDelete.delete() && imgToDelete.delete()) {
+//                DashboardPane.cars.remove(car); //OLD CODE
+                store.removeCar(car);
+                DashboardPane.refreshDashboardPane();
+                System.out.println("Deleted " + car.getCarName());
+            } else {
+                System.err.println("Failed to delete the car file.");
+            }
+        });
     }
 }

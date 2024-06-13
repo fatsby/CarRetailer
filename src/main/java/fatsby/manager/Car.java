@@ -2,29 +2,29 @@ package fatsby.manager;
 
 import java.io.Serializable;
 
-public class Room implements Serializable {
-    private String roomNumber;
+public class Car implements Serializable {
+    private String carName;
     private int capacity;
     private int price;
     private String description;
     private String imageURL;
 
-    public Room(String roomNumber, int capacity, int price, String description, String imageURL) {
-        this.roomNumber = roomNumber;
+    public Car(String carName, int capacity, int price, String description, String imageURL) {
+        this.carName = carName;
         this.capacity = capacity;
         this.price = price;
         this.description = description;
         this.imageURL = imageURL;
     }
 
-    public Room() {}
+    public Car() {}
 
-    public String getRoomNumber() {
-        return roomNumber;
+    public String getCarName() {
+        return carName;
     }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
+    public void setCarName(String carName) {
+        this.carName = carName;
     }
 
     public int getCapacity() {

@@ -5,6 +5,7 @@ import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import fatsby.login.Login;
 import fatsby.manager.FormsManager;
+import fatsby.manager.Serializer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,7 @@ public class Application extends JFrame {
         init();
     }
     private void init() {
+        Serializer.createDirectory();
         setTitle("The Sanctuary Hotel");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(1200, 700));

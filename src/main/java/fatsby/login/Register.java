@@ -80,7 +80,7 @@ public class Register extends JPanel {
                     return;
                 } else{
                     User user = new User(username, password, gender);
-                    Serializer.serializeObject(user, "src/main/java/fatsby/database/users", username+".dat");
+                    Serializer.serializeObject(user, "C:\\FatsbyCarRetailer\\database\\users", username+".dat");
                     JOptionPane.showMessageDialog(this, "User has been registered successfully");
                 }
             }
@@ -102,7 +102,7 @@ public class Register extends JPanel {
                     return;
                 } else{ //SUCCESSFUL REGISTER
                     Staff staff = new Staff(username, password, gender, invCode);
-                    Serializer.serializeObject(staff, "src/main/java/fatsby/database/staffs", username+".dat");
+                    Serializer.serializeObject(staff, "C:\\FatsbyCarRetailer\\database\\staffs", username+".dat");
                     JOptionPane.showMessageDialog(null, "Staff has been registered successfully");
                 }
             }
