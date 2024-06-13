@@ -17,7 +17,7 @@ public class Application extends JFrame {
     }
     private void init() {
         Serializer.createDirectory();
-        setTitle("The Sanctuary Hotel");
+        setTitle("Fatsby Car Retail");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(1200, 700));
         setLocationRelativeTo(null);

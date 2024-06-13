@@ -58,11 +58,13 @@ public class RoomPanel extends BlurChild {
         JLabel roomPrice = new JLabel("Price: $" + car.getPrice());
 
         //Changing style for book btn
-        JButton bookBtn = new JButton("Buy");
+        JButton bookBtn = new JButton("View Info");
         bookBtn.putClientProperty(FlatClientProperties.STYLE, "background: #90EE90; foreground: #000000;");
+        bookBtn.setFocusPainted(false);
 
         JButton deleteBtn = new JButton("Delete");
         deleteBtn.putClientProperty(FlatClientProperties.STYLE, "background: #FF474C; foreground: #000000;");
+        deleteBtn.setFocusPainted(false);
 
         // Add labels to the panel
         add(roomNumber, "wrap");
