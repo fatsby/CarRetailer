@@ -16,6 +16,7 @@ public class CarInfoDialog extends JDialog {
         setSize(new Dimension(760, 660));
         setLocationRelativeTo(null);
         setResizable(false);
+        setModal(true);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         scrollPane = new JScrollPane(drawPanel(car));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -34,11 +35,24 @@ public class CarInfoDialog extends JDialog {
         carName.putClientProperty(FlatClientProperties.STYLE,"" +
                 "font:bold +10");
 
-        JLabel description = new JLabel(car.getDescription());
-
+        String wrappedDescription = "<html><body style='width: %1spx'>" + car.getDescription() + "</body></html>";
+        JLabel description = new JLabel(String.format(wrappedDescription, 550));
 
         panel.add(carName, "grow, wrap");
         panel.add(description, "grow, wrap");
+
+        try {
+            String imageURL = car.getImageURL();
+            ImageIcon originalIcon = new ImageIcon(imageURL);
+            Image originalImage = originalIcon.getImage();
+            // Resize the image to 150x150 pixels
+            Image resizedImage = originalImage.getScaledInstance(700, 450, Image.SCALE_SMOOTH);
+            ImageIcon resizedIcon = new ImageIcon(resizedImage);
+            JLabel imageLabel = new JLabel(resizedIcon);
+            panel.add(imageLabel, "wrap"); // Add the image label to the panel with a line break
+        } catch (Exception e) {
+            System.err.println("Error loading car image: " + e.getMessage());
+        }
 
         return panel;
     }
