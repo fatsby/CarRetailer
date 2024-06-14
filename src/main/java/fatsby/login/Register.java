@@ -45,7 +45,7 @@ public class Register extends JPanel {
                 "[light]background:darken(@background,3%);" +
                 "[dark]background:lighten(@background,3%);");
 
-        JLabel regLabel = new JLabel("Registering for Grand Sanctuary Hotel: ");
+        JLabel regLabel = new JLabel("Registering for Fatsby Car Retail: ");
         regLabel.putClientProperty(FlatClientProperties.STYLE,"" +
                 "font:bold +10");
         JLabel description = new JLabel("Lead by our history, leading our future.");

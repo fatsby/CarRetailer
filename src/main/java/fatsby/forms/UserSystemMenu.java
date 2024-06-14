@@ -49,7 +49,8 @@ public class UserSystemMenu extends BlurChild {
         raven.drawer.component.menu.data.MenuItem items[] = new raven.drawer.component.menu.data.MenuItem[]{
                 new Item.Label("MAIN"),
                 new Item("Dashboard"),
-                new Item("Settings")
+                new Item("Settings"),
+                new Item("Inventory")
         };
         return new SimpleMenuOption().
                 setMenus(items)
@@ -83,7 +84,7 @@ public class UserSystemMenu extends BlurChild {
 
         return new SimpleHeaderData()
                 .setTitle(Login.currentUser)
-                .setDescription("Welcome to the Grand Sanctuary Hotel");
+                .setDescription("Welcome to Fatsby Car Retail");
     }
 
     public void addIndexChangeListener(IndexChangeListener listener) {

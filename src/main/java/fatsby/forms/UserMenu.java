@@ -23,9 +23,11 @@ public class UserMenu extends BlurBackground implements IndexChangeListener {
         cards = new JPanel(new CardLayout());
         dashboardPane = new DashboardPane();
         settingsPane = new SettingsPane();
+        inventoryPane = new InventoryPane();
 
         cards.add(dashboardPane, DASHBOARD_PANE);
         cards.add(settingsPane, SETTINGS_PANE);
+        cards.add(inventoryPane, INVENTORY_PANE);
         add(cards, "grow");
         switchPane(UserSystemMenu.index);
         userSystemMenu.addIndexChangeListener(this);
@@ -37,14 +39,18 @@ public class UserMenu extends BlurBackground implements IndexChangeListener {
             cl.show(cards, DASHBOARD_PANE);
         } else if (index == 1) {
             cl.show(cards, SETTINGS_PANE);
+        } else if (index == 2) {
+            cl.show(cards, INVENTORY_PANE);
         }
     }
     private fatsby.forms.UserSystemMenu userSystemMenu;
     private DashboardPane dashboardPane;
     private SettingsPane settingsPane;
+    private InventoryPane inventoryPane;
     private JPanel cards;
     final static String DASHBOARD_PANE = "Dashboard Pane";
     final static String SETTINGS_PANE = "Settings Pane";
+    final static String INVENTORY_PANE = "Inventory Pane";
 
     @Override
     public void onIndexChanged(int newIndex) {

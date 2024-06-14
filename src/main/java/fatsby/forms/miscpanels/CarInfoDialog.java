@@ -1,6 +1,7 @@
 package fatsby.forms.miscpanels;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import fatsby.manager.Car;
 import fatsby.manager.FormsManager;
 import net.miginfocom.swing.MigLayout;
@@ -12,6 +13,7 @@ import java.awt.*;
 
 public class CarInfoDialog extends JDialog {
     public CarInfoDialog(Car car) {
+        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY,Font.PLAIN,13));
         init(car);
     }
     private void init(Car car) {

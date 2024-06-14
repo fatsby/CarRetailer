@@ -21,7 +21,7 @@ public class RoomPanel extends BlurChild {
     private User user = User.getInstance();
     private Store store = Store.getInstance();
 
-    public RoomPanel(Car car){
+    public RoomPanel(Car car, boolean isInventory){
         super(new Style()
                 .setBlur(30)
                 .setBorder(new StyleBorder(10)
@@ -31,9 +31,9 @@ public class RoomPanel extends BlurChild {
                 )
                 .setOverlay(new StyleOverlay(new Color(0,0,0),0.2f))
         );
-        init(car);
+        init(car, isInventory);
     }
-    public void init(Car car){
+    public void init(Car car, boolean isInventory){
         // Create a new JPanel to hold room details
 
         setLayout(new MigLayout("align center", "[center]", "[center]"));
@@ -70,10 +70,12 @@ public class RoomPanel extends BlurChild {
         add(roomNumber, "wrap");
         add(roomCapacity, "wrap");
         add(roomPrice, "wrap");
-        if (user.isStaff()){
-            add(deleteBtn, "wrap, align center");
-        } else {
-            add(bookBtn, "wrap, align center");
+        if (!isInventory){
+            if (user.isStaff()){
+                add(deleteBtn, "wrap, align center");
+            } else {
+                add(bookBtn, "wrap, align center");
+            }
         }
 
         bookBtn.addActionListener(e -> {

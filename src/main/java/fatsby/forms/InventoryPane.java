@@ -3,35 +3,33 @@ package fatsby.forms;
 import com.formdev.flatlaf.FlatClientProperties;
 import fatsby.forms.miscpanels.RoomPanel;
 import fatsby.manager.Car;
-import fatsby.manager.Serializer;
 import fatsby.manager.Store;
+import fatsby.manager.User;
 import net.miginfocom.swing.MigLayout;
 import raven.swing.blur.BlurChild;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
-public class DashboardPane extends BlurChild {
-    public DashboardPane() {
+public class InventoryPane extends BlurChild {
+    public InventoryPane() {
         init();
     }
-    private void init(){
+    private  void init(){
         setLayout(new MigLayout("wrap 5, insets 20", "[center]", "[center]"));
 
-
-        JLabel availCarLabel = new JLabel("Available Cars:");
-        availCarLabel.putClientProperty(FlatClientProperties.STYLE,"font:bold +10");
-        add(availCarLabel, "growx, wrap");
+        int totalAssetsINT = 0;
+        for(Car car: user.getOwnedCars()){
+            totalAssetsINT += car.getPrice();
+        }
+        JLabel totalAssets = new JLabel("Total Assets Value: "+totalAssetsINT);
+        totalAssets.putClientProperty(FlatClientProperties.STYLE,"font:bold +10");
+        add(totalAssets, "growx, wrap");
 
         //Scroll Panel
         container = new BlurChild();
         container.setLayout(new MigLayout("wrap 5, insets 0", "[]", "[]"));
-        for (Car car : store.getCars()) {
-            RoomPanel roomPanel = new RoomPanel(car, false);
+        for (Car car : user.getOwnedCars()) {
+            RoomPanel roomPanel = new RoomPanel(car, true);
             container.add(roomPanel);
         }
 
@@ -44,17 +42,17 @@ public class DashboardPane extends BlurChild {
         add(availCarScrollPane, "growx, wrap");
     }
 
-    public static void refreshDashboardPane() {
+    public static void refreshInventoryPane() {
         container.removeAll(); // Remove all components
         container.setLayout(new MigLayout("wrap 5, insets 0", "[]", "[]"));
-        for (Car car : store.getCars()) {
-            RoomPanel roomPanel = new RoomPanel(car, false);
+        for (Car car : user.getOwnedCars()) {
+            RoomPanel roomPanel = new RoomPanel(car, true);
             container.add(roomPanel);
         }
         container.revalidate();
         container.repaint();
     }
 
-    private static Store store = Store.getInstance();
     public static BlurChild container;
+    private static User user = User.getInstance();
 }

@@ -28,7 +28,7 @@ public class Application extends JFrame {
 
     public static void main(String[] args) {
         FlatRobotoFont.install();
-        FlatMacLightLaf.registerCustomDefaultsSource("fatsby.themes");
+        FlatMacDarkLaf.registerCustomDefaultsSource("fatsby.themes");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY,Font.PLAIN,13));
         FlatMacDarkLaf.setup();
         EventQueue.invokeLater(() -> {

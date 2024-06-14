@@ -83,7 +83,7 @@ public class AdminSystemMenu extends BlurChild {
 
         return new SimpleHeaderData()
                 .setTitle(Login.currentUser)
-                .setDescription("Grand Sanctuary Hotel Admin Panel");
+                .setDescription("Fatsby Car Retail Admin Panel");
     }
 
     public void addIndexChangeListener(IndexChangeListener listener) {

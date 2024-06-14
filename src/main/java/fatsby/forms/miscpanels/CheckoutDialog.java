@@ -1,8 +1,12 @@
 package fatsby.forms.miscpanels;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import fatsby.forms.InventoryPane;
 import fatsby.manager.Car;
 import fatsby.manager.FormsManager;
+import fatsby.manager.Serializer;
+import fatsby.manager.User;
 import net.miginfocom.swing.MigLayout;
 import org.kordamp.ikonli.paymentfont.PaymentFont;
 
@@ -10,7 +14,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CheckoutDialog extends javax.swing.JDialog {
+    private User user = User.getInstance();
+
     public CheckoutDialog(Car car){
+        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY,Font.PLAIN,13));
         init(car);
     }
     private void init(Car car){
@@ -20,7 +27,7 @@ public class CheckoutDialog extends javax.swing.JDialog {
         setResizable(false);
         setModal(true);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setLayout(new MigLayout("insets 20 20 20 20"));
+        setLayout(new MigLayout("insets 20 20 20 20, align center", "[grow]", "[grow]"));
         drawPanel(car);
     }
     private void drawPanel(Car car){
@@ -99,7 +106,7 @@ public class CheckoutDialog extends javax.swing.JDialog {
                 "[dark]background:lighten(@background,3%);");
         JLabel carName = new JLabel(car.getCarName());
         JLabel price = new JLabel("$"+car.getPrice());
-        sumPanel.add(carName, "gapright 375");
+        sumPanel.add(carName, "gapright 300");
         sumPanel.add(price, "wrap");
 
         JSeparator separator = new JSeparator();
@@ -113,7 +120,7 @@ public class CheckoutDialog extends javax.swing.JDialog {
         JLabel priceTotal = new JLabel("$"+car.getPrice());
         priceTotal.putClientProperty(FlatClientProperties.STYLE,"font:bold +10");
         sumPanel.add(priceTotal, "");
-        this.add(sumPanel, "wrap");
+        this.add(sumPanel, "wrap, align center");
         JButton purchaseBTN = new JButton("Purchase");
         purchaseBTN.putClientProperty(FlatClientProperties.STYLE, "background: #90EE90; foreground: #000000;");
         purchaseBTN.setFocusPainted(false);
@@ -121,5 +128,11 @@ public class CheckoutDialog extends javax.swing.JDialog {
         purchaseBTN.setMargin(new Insets(10, 20, 10, 20));
         this.add(purchaseBTN, "wrap, align center, gapy 20");
 
+        purchaseBTN.addActionListener(e ->{
+            user.addOwnedCar(car);
+            InventoryPane.refreshInventoryPane();
+            Serializer.serializeObject(user, "C:\\FatsbyCarRetailer\\database\\users", user.getUsername()+".dat");
+            JOptionPane.showMessageDialog(CheckoutDialog.this, "Thank you for your purchase!");
+        });
     }
 }
