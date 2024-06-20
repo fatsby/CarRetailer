@@ -25,6 +25,9 @@ public class Login extends JPanel {
         btnLogin = new JButton("Login");
         chkStaff = new JCheckBox("Is Staff?");
 
+        btnLogin.putClientProperty(FlatClientProperties.STYLE, "background: #5856D6; foreground: #FFFFFF;");
+        btnLogin.setFocusPainted(false);
+
 
         JLabel usernameLabel = new JLabel("Username:");
         FontIcon userIcon = FontIcon.of(Dashicons.ADMIN_USERS);

@@ -48,12 +48,23 @@ public class UserSystemMenu extends BlurChild {
     private SimpleMenuOption getMenuOption(){
         raven.drawer.component.menu.data.MenuItem items[] = new raven.drawer.component.menu.data.MenuItem[]{
                 new Item.Label("MAIN"),
-                new Item("Dashboard"),
-                new Item("Settings"),
-                new Item("Inventory")
+                new Item("Dashboard", "dashicons-cart"),
+                new Item("Settings", "dashicons-admin-generic"),
+                new Item("Inventory", "dashicons-car")
         };
-        return new SimpleMenuOption().
-                setMenus(items)
+        SimpleMenuOption menuOption = new SimpleMenuOption() {
+            @Override
+            public Icon buildMenuIcon(String path, float scale) {
+                FontIcon icon = new FontIcon();
+                icon.setIconColor(new Color(208, 208, 208));
+                icon.setIconSize(20);
+                icon.setIkon(Dashicons.findByDescription(path));
+                return icon;
+            }
+        };
+
+        return menuOption
+                .setMenus(items)
                 .setMenuStyle(new SimpleMenuStyle() {
                     @Override
                     public void styleMenuPanel(JPanel panel, int[] index) {
@@ -104,4 +115,6 @@ public class UserSystemMenu extends BlurChild {
     private SimpleMenu simpleMenu;
     public static int index;
     private final List<IndexChangeListener> listeners = new ArrayList<>();
+
+
 }
