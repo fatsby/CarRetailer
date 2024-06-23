@@ -5,6 +5,13 @@
 1. Le Minh Tri
 2. Nguyen Trong Luu
 
+### Libraries
+1. MigLayout
+2. Ikonli
+3. FlatLaf
+4. FlatLaf Extras
+5. Raven Drawer
+
 <h1 align="center">Pictures</h1>
 
 <p align="center">
