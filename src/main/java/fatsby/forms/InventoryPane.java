@@ -3,7 +3,6 @@ package fatsby.forms;
 import com.formdev.flatlaf.FlatClientProperties;
 import fatsby.forms.miscpanels.RoomPanel;
 import fatsby.manager.Car;
-import fatsby.manager.Store;
 import fatsby.manager.User;
 import net.miginfocom.swing.MigLayout;
 import raven.swing.blur.BlurChild;
@@ -17,13 +16,13 @@ public class InventoryPane extends BlurChild {
     private  void init(){
         setLayout(new MigLayout("wrap 5, insets 20", "[center]", "[center]"));
 
-        int totalAssetsINT = 0;
-        for(Car car: user.getOwnedCars()){
-            totalAssetsINT += car.getPrice();
-        }
-        JLabel totalAssets = new JLabel("Total Assets Value: "+totalAssetsINT);
-        totalAssets.putClientProperty(FlatClientProperties.STYLE,"font:bold +10");
-        add(totalAssets, "growx, wrap");
+//        int totalAssetsINT = 0;
+//        for(Car car: user.getOwnedCars()){
+//            totalAssetsINT += car.getPrice();
+//        }
+        JLabel inventoryLBL = new JLabel("Inventory");
+        inventoryLBL.putClientProperty(FlatClientProperties.STYLE,"font:bold +10");
+        add(inventoryLBL, "growx, wrap");
 
         //Scroll Panel
         container = new BlurChild();
