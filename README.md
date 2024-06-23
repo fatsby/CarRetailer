@@ -1,8 +1,10 @@
 <h1 align="center">Car Retailer App</h1>
+
 ### Team Members
 
 1. Le Minh Tri
 2. Nguyen Trong Luu
+
 <h1 align="center">Pictures</h1>
 
 <p align="center">
